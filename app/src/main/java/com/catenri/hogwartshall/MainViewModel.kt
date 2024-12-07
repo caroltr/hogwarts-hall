@@ -2,20 +2,25 @@ package com.catenri.hogwartshall
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.catenri.data.repository.RemoteRepository
+import com.catenri.hogwartshall.domain.GetHarryPotterCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: RemoteRepository,
+    getHarryPotterCharactersUseCase: GetHarryPotterCharactersUseCase,
 ) : ViewModel() {
 
-    fun getCharacters() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchCharacters()
-        }
-    }
+    val mainUiStaStateFlow: StateFlow<MainUiState> =
+        getHarryPotterCharactersUseCase()
+            .map(MainUiState::Success)
+            .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = MainUiState.Loading,
+        )
 }

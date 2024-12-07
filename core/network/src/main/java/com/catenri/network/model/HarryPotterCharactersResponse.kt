@@ -2,7 +2,6 @@ package com.catenri.network.model
 
 import com.google.gson.annotations.SerializedName
 
-// TODO remove any unused fields
 data class HarryPotterCharacterResponse(
     @SerializedName("actor") val actor: String,
     @SerializedName("alive") val alive: Boolean,
