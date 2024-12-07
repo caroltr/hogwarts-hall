@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Hogwarts Hall"
 include(":app")
 include(":core:network")
+include(":core:data")

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.catenri.hogwartshall.core.network"
+    namespace = "com.catenri.hogwartshall.core.data"
     compileSdk = 34
 
     compileOptions {
@@ -18,6 +18,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
