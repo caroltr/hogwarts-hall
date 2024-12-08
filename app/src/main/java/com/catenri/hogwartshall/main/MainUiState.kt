@@ -1,4 +1,4 @@
-package com.catenri.hogwartshall
+package com.catenri.hogwartshall.main
 
 import com.catenri.data.model.Character
 
