@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationOn
@@ -25,13 +26,17 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,46 +48,67 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.catenri.data.model.Character
 import com.catenri.hogwartshall.ui.theme.HogwartsColors
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             HogwartsHallTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val characterHarry = Character(
-                        actor = "Daniel Radcliffe",
-                        alive = true,
-                        dateOfBirth = "31-07-1980",
-                        house = "human",
-                        id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
-                        image = "",
-                        name = "Harry Potter",
-                        species = "human",
-                        yearOfBirth = 1980
-                    )
-
-                    DetailScreen(
-                        character = characterHarry,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                DetailScreen(
+                    onBackClick = { finish() }
+                )
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
+    onBackClick: () -> Unit
+) {
+    val viewModel: DetailViewModel = hiltViewModel()
+    val character by viewModel.character.collectAsStateWithLifecycle()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Character Details") },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        character?.let { char ->
+            CharacterDetail(
+                character = char,
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Composable
+fun CharacterDetail(
     character: Character,
-    modifier: Modifier = Modifier
+    modifier: Modifier
 ) {
     Column(
         modifier = modifier
@@ -159,7 +185,7 @@ fun DetailScreen(
             DetailItem(
                 label = "Species",
                 value = character.species,
-                icon = Icons.Outlined.LocationOn 
+                icon = Icons.Outlined.LocationOn
             )
 
             if (character.house.isNotBlank()) {
@@ -174,7 +200,7 @@ fun DetailScreen(
                 DetailItem(
                     label = "Date of Birth",
                     value = dob,
-                    icon = Icons.Outlined.Call 
+                    icon = Icons.Outlined.Call
                 )
             }
         }
@@ -382,8 +408,8 @@ fun DetailScreenPreview() {
     )
 
     HogwartsHallTheme {
-        DetailScreen(
-            character = characterHarry,
-        )
+//        DetailScreen(
+//            character = characterHarry,
+//        )
     }
 }

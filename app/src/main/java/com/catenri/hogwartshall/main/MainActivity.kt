@@ -3,7 +3,6 @@ package com.catenri.hogwartshall.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,55 +33,66 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.rememberNavController
 import com.catenri.data.model.Character
+import com.catenri.hogwartshall.navigation.AppNavigation
 import com.catenri.hogwartshall.ui.theme.HogwartsColors
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             HogwartsHallTheme {
-                val mainUiStaStateFlow by viewModel.mainUiStaStateFlow.collectAsStateWithLifecycle()
-                var searchQuery by remember { mutableStateOf("") }
-                var isSearchActive by remember { mutableStateOf(false) }
+                val navController = rememberNavController()
+                AppNavigation(navController = navController)
+            }
+        }
+    }
+}
 
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    topBar  = {
-                        SearchTopBarComponent(
-                            isSearchActive = isSearchActive,
-                            query = searchQuery,
-                            onTabClick = { isSearchActive = true },
-                            onSearchIconClick = {
-                                isSearchActive = false
-                                searchQuery = ""
-                            },
-                            onQueryChange = { newQuery ->
-                                searchQuery = newQuery
-                                viewModel.onSearchQueryChange(newQuery)
-                            }
-                        )
-                    }
-                ) { innerPadding ->
-                    when (mainUiStaStateFlow) {
-                        MainUiState.Loading -> LoadingComponent()
-                        MainUiState.LoadFailed -> LoadFailedComponent()
-                        is MainUiState.Success -> {
-                            val characters = (mainUiStaStateFlow as MainUiState.Success).characters
-                            CharactersList(
-                                    characters = characters,
-                                    modifier = Modifier.padding(innerPadding)
-                                )
-                        }
-                    }
+@Composable
+fun MainScreen(
+    onCharacterClick: (Character) -> Unit
+) {
+    val viewModel: MainViewModel = hiltViewModel()
+    val mainUiStaStateFlow by viewModel.mainUiStaStateFlow.collectAsStateWithLifecycle()
+    var searchQuery by remember { mutableStateOf("") }
+    var isSearchActive by remember { mutableStateOf(false) }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar  = {
+            SearchTopBarComponent(
+                isSearchActive = isSearchActive,
+                query = searchQuery,
+                onTabClick = { isSearchActive = true },
+                onSearchIconClick = {
+                    isSearchActive = false
+                    searchQuery = ""
+                },
+                onQueryChange = { newQuery ->
+                    searchQuery = newQuery
+                    viewModel.onSearchQueryChange(newQuery)
                 }
+            )
+        }
+    ) { innerPadding ->
+        when (mainUiStaStateFlow) {
+            MainUiState.Loading -> LoadingComponent()
+            MainUiState.LoadFailed -> LoadFailedComponent()
+            is MainUiState.Success -> {
+                val characters = (mainUiStaStateFlow as MainUiState.Success).characters
+                CharactersList(
+                    characters = characters,
+                    modifier = Modifier.padding(innerPadding),
+                    onCharacterClick = onCharacterClick,
+                )
             }
         }
     }
@@ -168,13 +178,17 @@ fun LoadFailedComponent() {
 @Composable
 fun CharactersList(
     characters: List<Character>,
+    onCharacterClick: (Character) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(characters) { character ->
-            CharacterItem(character = character)
+            CharacterItem(
+                character = character,
+                onCharacterClick = onCharacterClick
+            )
         }
     }
 }
@@ -182,10 +196,12 @@ fun CharactersList(
 @Composable
 fun CharacterItem(
     character: Character,
+    onCharacterClick: (Character) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.padding(8.dp),
+        onClick = { onCharacterClick(character) }
     ) {
         Column {
             HorizontalDivider(
@@ -226,21 +242,21 @@ fun CharacterItem(
 @Preview(showBackground = true)
 @Composable
 fun CharacterItemPreview() {
-    HogwartsHallTheme {
-        CharacterItem(
-            character = Character(
-                actor = "Daniel",
-                alive = true,
-                dateOfBirth = null,
-                house = "gryffindor",
-                id = "",
-                image = "",
-                name = "Harry",
-                species = "human",
-                yearOfBirth = 0
-            )
-        )
-    }
+//    HogwartsHallTheme {
+//        CharacterItem(
+//            character = Character(
+//                actor = "Daniel",
+//                alive = true,
+//                dateOfBirth = null,
+//                house = "gryffindor",
+//                id = "",
+//                image = "",
+//                name = "Harry",
+//                species = "human",
+//                yearOfBirth = 0
+//            )
+//        )
+//    }
 }
 
 @Preview(showBackground = true)

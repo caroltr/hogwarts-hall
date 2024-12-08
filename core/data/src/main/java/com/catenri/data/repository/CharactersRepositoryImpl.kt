@@ -20,4 +20,9 @@ class CharactersRepositoryImpl @Inject constructor(
                     .map { it.toCharacter() }
             )
         }.flowOn(Dispatchers.IO)
+
+    override suspend fun getCharacter(id: String): Character =
+                client.fetchCharacters()
+                    .map { it.toCharacter() }
+                    .first { it.id == id }
 }
