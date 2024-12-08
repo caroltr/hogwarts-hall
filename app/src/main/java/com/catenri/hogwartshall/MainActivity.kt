@@ -64,8 +64,9 @@ class MainActivity : ComponentActivity() {
                                 isSearchActive = false
                                 searchQuery = ""
                             },
-                            onQueryChange = {
-                                searchQuery = it
+                            onQueryChange = { newQuery ->
+                                searchQuery = newQuery
+                                viewModel.onSearchQueryChange(newQuery)
                             }
                         )
                     }
@@ -75,17 +76,8 @@ class MainActivity : ComponentActivity() {
                         MainUiState.LoadFailed -> LoadFailedComponent()
                         is MainUiState.Success -> {
                             val characters = (mainUiStaStateFlow as MainUiState.Success).characters
-                            val filteredCharacters = if (searchQuery.isNotEmpty()) {
-                                characters.filter {
-                                    it.name.contains(searchQuery, ignoreCase = true) ||
-                                            it.actor.contains(searchQuery, ignoreCase = true)
-                                }
-                            } else {
-                                characters
-                            }
-
                             CharactersList(
-                                    characters = filteredCharacters,
+                                    characters = characters,
                                     modifier = Modifier.padding(innerPadding)
                                 )
                         }
@@ -248,14 +240,6 @@ fun CharacterItemPreview() {
                 yearOfBirth = 0
             )
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoadingComponentPreview() {
-    HogwartsHallTheme {
-        LoadingComponent()
     }
 }
 

@@ -29,6 +29,11 @@ android {
             )
         }
     }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -56,7 +61,12 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
-    testImplementation(libs.junit)
+//    testImplementation(libs.mockito.core)
+//    testImplementation(libs.mockito.kotlin)
+//    testImplementation(libs.coroutines.test)
+    testImplementation(libs.junit.engine)
+    testImplementation(libs.junit.api)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

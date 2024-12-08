@@ -35,6 +35,5 @@ dependencies {
     implementation(libs.okhttp.interceptor)
 
     testImplementation(libs.okhttp.mockserver)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }
