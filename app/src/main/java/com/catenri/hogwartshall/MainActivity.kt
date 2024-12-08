@@ -8,12 +8,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.catenri.data.model.Character
+import com.catenri.hogwartshall.ui.theme.HogwartsColors
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -96,23 +99,37 @@ fun CharacterItem(
     Card(
         modifier = modifier.padding(8.dp),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Text(
-                text = character.name,
-                style = MaterialTheme.typography.titleMedium
+        Column {
+            HorizontalDivider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(4.dp),
+                color = when (character.house.lowercase()) {
+                    "gryffindor" -> HogwartsColors.gryffindor
+                    "slytherin" -> HogwartsColors.slytherin
+                    "ravenclaw" -> HogwartsColors.ravenclaw
+                    "hufflepuff" -> HogwartsColors.hufflepuff
+                    else -> MaterialTheme.colorScheme.surfaceVariant
+                }
             )
-            Text(
-                text = character.actor,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = character.species,
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = character.name,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = character.actor,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = character.species,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }

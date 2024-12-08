@@ -1,6 +1,5 @@
 package com.catenri.hogwartshall.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +31,13 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
+
+object HogwartsColors {
+    val gryffindor = Griffindor
+    val slytherin = Slytherin
+    val ravenclaw = Ravenclaw
+    val hufflepuff = Hufflepuff
+}
 
 @Composable
 fun HogwartsHallTheme(
