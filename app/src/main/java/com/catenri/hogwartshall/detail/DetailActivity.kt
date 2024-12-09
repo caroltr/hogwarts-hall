@@ -404,7 +404,6 @@ fun DetailScreenPreview() {
         image = "",
         name = "Harry Potter",
         species = "human",
-        yearOfBirth = 1980
     )
 
     HogwartsHallTheme {

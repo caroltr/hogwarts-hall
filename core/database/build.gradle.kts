@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.catenri.hogwartshall.core.data"
+    namespace = "com.catenri.hogwartshall.core.network"
     compileSdk = 34
 
     compileOptions {
@@ -18,9 +18,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
-    implementation(project(":core:database"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
@@ -33,10 +30,10 @@ dependencies {
     testImplementation(libs.coroutines)
     testImplementation(libs.coroutines.test)
 
-    // network
-    implementation(libs.retrofit)
-    implementation(libs.okhttp.interceptor)
+    // room
+    implementation(libs.room)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 
-    testImplementation(libs.okhttp.mockserver)
     androidTestImplementation(libs.androidx.junit)
 }
