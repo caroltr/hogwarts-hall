@@ -3,7 +3,6 @@ package com.catenri.database.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// TODO make it internal
 @Entity(
     tableName = "character",
 )
