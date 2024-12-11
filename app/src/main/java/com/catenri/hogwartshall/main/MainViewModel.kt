@@ -21,8 +21,6 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
-
-    // TODO handle configuration change here, to deal with search
     val mainUiStaStateFlow: StateFlow<MainUiState> =
         combine(
             getCharactersUseCase(),

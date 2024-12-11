@@ -51,8 +51,12 @@ fun MainScreen(
     ) { innerPadding ->
         when (mainUiStaStateFlow) {
             MainUiState.Loading -> LoadingItem()
-            MainUiState.LoadFailed -> LoadFailedItem()
+            MainUiState.LoadFailed -> {
+                isSearchAvailable = false
+                LoadFailedItem()
+            }
             is MainUiState.Success -> {
+                isSearchAvailable = true
                 val characters = (mainUiStaStateFlow as MainUiState.Success).characters
                 CharactersItem(
                     characters = characters,
