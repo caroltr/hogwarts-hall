@@ -43,6 +43,9 @@ android {
     buildFeatures {
         compose = true
     }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -58,6 +61,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.work.ktx)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.gson)
 
@@ -67,6 +72,7 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
+    implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
 
 //    testImplementation(libs.mockito.core)

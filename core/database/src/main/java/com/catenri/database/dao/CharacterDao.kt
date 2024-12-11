@@ -13,12 +13,9 @@ interface CharacterDao {
     @Query("SELECT * FROM character ORDER BY id DESC")
     fun getAll(): Flow<List<CharacterEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(character: CharacterEntity)
-
-    @Query("DELETE FROM character")
-    suspend fun deleteAll()
-
     @Query("SELECT * FROM character WHERE id = :id")
-    fun get(id: Int): Flow<CharacterEntity>
+    suspend fun get(id: String): CharacterEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAll(characters: List<CharacterEntity>)
 }

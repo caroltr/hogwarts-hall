@@ -11,5 +11,5 @@ class GetHarryPotterCharactersUseCase @Inject constructor(
 
     // TODO map to a different model here
     operator fun invoke(): Flow<List<Character>> =
-        remoteRepository.fetchCharacters()
+        remoteRepository.getCharacters()
 }

@@ -4,9 +4,9 @@ import com.catenri.data.repository.CharactersRepositoryImpl
 import javax.inject.Inject
 
 class GetSingleCharacterUseCase @Inject constructor(
-    private val remoteRepository: CharactersRepositoryImpl
+    private val repository: CharactersRepositoryImpl
 ) {
 
     suspend operator fun invoke(id: String) =
-        remoteRepository.getCharacter(id)
+        repository.getCharacter(id)
 }

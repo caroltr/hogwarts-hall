@@ -14,7 +14,6 @@ class FilterCharactersUseCaseTest {
         image = "https://ik.imagekit.io/hpapi/harry.jpg",
         name = "Harry Potter",
         species = "human",
-        yearOfBirth = 1980
     )
 
     val characterDanielle = Character(
@@ -26,7 +25,6 @@ class FilterCharactersUseCaseTest {
         image = "",
         name = "Danielle Tabor",
         species = "human",
-        yearOfBirth = 123
     )
 
     val characters = listOf(characterHarry, characterDanielle)
