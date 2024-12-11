@@ -1,14 +1,15 @@
 package com.catenri.hogwartshall.domain
 
 import com.catenri.data.model.Character
+import com.catenri.hogwartshall.model.CharacterUiModel
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
 class FilterCharactersUseCaseTest {
-    val characterHarry = Character(
+    val characterHarry = CharacterUiModel(
         actor = "Daniel Radcliffe",
         alive = true,
-        dateOfBirth = "31-07-1980",
+        dateOfBirth = "31 07 1980",
         house = "human",
         id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
         image = "https://ik.imagekit.io/hpapi/harry.jpg",
@@ -16,7 +17,7 @@ class FilterCharactersUseCaseTest {
         species = "human",
     )
 
-    val characterDanielle = Character(
+    val characterDanielle = CharacterUiModel(
         actor = "Angelina Johnson",
         alive = true,
         dateOfBirth = "date_of_birth 1",

@@ -1,6 +1,7 @@
 package com.catenri.hogwartshall.model
 
 import com.catenri.data.model.Character
+import com.catenri.hogwartshall.common.util.formatToUi
 
 data class CharacterUiModel(
     val actor: String,
@@ -17,7 +18,7 @@ internal fun Character.toUiModel() = CharacterUiModel(
     id = this.id,
     actor = this.actor,
     alive = this.alive,
-    dateOfBirth = this.dateOfBirth,
+    dateOfBirth = this.dateOfBirth?.formatToUi(),
     house = this.house,
     image = this.image,
     name = this.name,

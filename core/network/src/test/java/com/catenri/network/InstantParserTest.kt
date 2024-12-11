@@ -11,7 +11,7 @@ class InstantParserTest {
     private val sut by lazy { InstantParser() }
 
     @Test
-    fun `when date is in correct format then parse succeeds `() {
+    fun `when date is in correct format then parse succeeds`() {
         val date = "31-12-2024"
 
         val actual = sut.stringToInstant(date)
