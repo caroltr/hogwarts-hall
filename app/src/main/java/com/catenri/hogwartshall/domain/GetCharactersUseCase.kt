@@ -5,7 +5,7 @@ import com.catenri.data.repository.CharactersRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetHarryPotterCharactersUseCase @Inject constructor(
+class GetCharactersUseCase @Inject constructor(
     private val remoteRepository: CharactersRepositoryImpl
 ) {
 

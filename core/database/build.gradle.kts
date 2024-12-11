@@ -21,6 +21,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    implementation(libs.kotlinx.datetime)
+
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

@@ -1,15 +1,22 @@
 package com.catenri.network.di
 
-import com.catenri.network.service.HarryPotterCharactersClient
-import com.catenri.network.service.HarryPotterCharactersService
+import com.catenri.network.service.CharactersClient
+import com.catenri.network.service.CharactersService
+import com.catenri.network.util.InstantConverter
+import com.catenri.network.util.InstantParser
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.datetime.Instant
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
+private const val BASE_URL = "https://hp-api.onrender.com/api/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -18,30 +25,45 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        // TODO must be disabled when release build
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
         return OkHttpClient.Builder()
-//            .addInterceptor(HttpRequestInterceptor())
+            .addInterceptor(loggingInterceptor)
             .build()
     }
 
     @Provides
+    fun provideInstantConverter(instantParser: InstantParser) = InstantConverter(instantParser)
+
+    @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        instantConverter: InstantConverter
+    ): Retrofit {
+        val gson = GsonBuilder()
+            .registerTypeAdapter(Instant::class.java, instantConverter)
+            .create()
+
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://hp-api.onrender.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit): HarryPotterCharactersService {
-        return retrofit.create(HarryPotterCharactersService::class.java)
+    fun provideService(retrofit: Retrofit): CharactersService {
+        return retrofit.create(CharactersService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideClient(service: HarryPotterCharactersService): HarryPotterCharactersClient {
-        return HarryPotterCharactersClient(service)
+    fun provideClient(service: CharactersService): CharactersClient {
+        return CharactersClient(service)
     }
 }

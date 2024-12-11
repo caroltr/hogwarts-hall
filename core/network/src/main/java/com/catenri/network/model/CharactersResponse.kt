@@ -1,14 +1,15 @@
 package com.catenri.network.model
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.datetime.Instant
 
-data class HarryPotterCharacterResponse(
+data class CharactersResponse(
     @SerializedName("actor") val actor: String,
     @SerializedName("alive") val alive: Boolean,
     @SerializedName("alternate_actors") val alternateActors: List<String>,
     @SerializedName("alternate_names") val alternateNames: List<String>,
     @SerializedName("ancestry") val ancestry: String,
-    @SerializedName("dateOfBirth") val dateOfBirth: String,
+    @SerializedName("dateOfBirth") val dateOfBirth: Instant, // pattern: 06-12-1928
     @SerializedName("eyeColour") val eyeColour: String,
     @SerializedName("gender") val gender: String,
     @SerializedName("hairColour") val hairColour: String,
@@ -22,7 +23,7 @@ data class HarryPotterCharacterResponse(
     @SerializedName("species") val species: String,
     @SerializedName("wand") val wand: Wand,
     @SerializedName("wizard") val wizard: Boolean,
-    @SerializedName("yearOfBirth") val yearOfBirth: Int // pattern: 06-12-1928
+    @SerializedName("yearOfBirth") val yearOfBirth: Int
 )
 
 data class Wand(

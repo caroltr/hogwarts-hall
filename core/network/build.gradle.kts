@@ -8,6 +8,10 @@ android {
     namespace = "com.catenri.hogwartshall.core.network"
     compileSdk = 34
 
+    defaultConfig {
+        minSdk = 28
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -15,14 +19,22 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    implementation(libs.kotlinx.datetime)
+
     // hilt
     implementation(libs.hilt)
+    testImplementation(libs.junit.jupiter)
     ksp(libs.hilt.compiler)
 
     // coroutines

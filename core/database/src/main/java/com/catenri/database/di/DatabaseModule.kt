@@ -11,6 +11,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+private const val DATABASE_NAME = "hogwarts_hall_database"
+
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatabaseModule {
@@ -21,7 +23,7 @@ internal object DatabaseModule {
         return Room.databaseBuilder(
             appContext,
             HogwartsHallDatabase::class.java,
-            "hogwarts_hall_database"
+            DATABASE_NAME
         ).build()
     }
 

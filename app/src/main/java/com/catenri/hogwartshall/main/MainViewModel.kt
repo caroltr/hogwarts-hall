@@ -3,7 +3,7 @@ package com.catenri.hogwartshall.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.catenri.hogwartshall.domain.FilterCharactersUseCase
-import com.catenri.hogwartshall.domain.GetHarryPotterCharactersUseCase
+import com.catenri.hogwartshall.domain.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    getHarryPotterCharactersUseCase: GetHarryPotterCharactersUseCase,
+    getCharactersUseCase: GetCharactersUseCase,
     filterCharactersUseCase: FilterCharactersUseCase,
 ) : ViewModel() {
 
@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
     // TODO handle configuration change here, to deal with search
     val mainUiStaStateFlow: StateFlow<MainUiState> =
         combine(
-            getHarryPotterCharactersUseCase(),
+            getCharactersUseCase(),
             searchQuery
         ) { characters, query ->
             filterCharactersUseCase(query, characters)
