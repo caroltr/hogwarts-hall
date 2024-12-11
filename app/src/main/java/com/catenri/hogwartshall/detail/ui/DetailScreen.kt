@@ -45,12 +45,13 @@ import coil3.request.crossfade
 import com.catenri.hogwartshall.R
 import com.catenri.hogwartshall.common.ui.houseColor
 import com.catenri.hogwartshall.detail.DetailViewModel
+import com.catenri.hogwartshall.model.CharacterHouse
 import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(
+internal fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -82,7 +83,7 @@ fun DetailScreen(
 }
 
 @Composable
-fun CharacterDetail(
+internal fun CharacterDetail(
     character: CharacterUiModel,
     modifier: Modifier
 ) {
@@ -134,7 +135,7 @@ private fun HeaderContent(
                 .fillMaxWidth()
                 .height(4.dp)
                 .align(Alignment.BottomCenter),
-            color = houseColor(character.house.lowercase())
+            color = houseColor(character.house)
         )
     }
 }
@@ -161,32 +162,40 @@ private fun BottomContent(
             LifeStatusBadge(isAlive = character.alive)
         }
 
-        DescriptionItem(
-            label = stringResource(R.string.detail_screen_bottom_content_portrayed_by_label),
-            value = character.actor,
-            icon = Icons.Outlined.Person
-        )
-
-        DescriptionItem(
-            label = stringResource(R.string.detail_screen_bottom_content_species_label),
-            value = character.species,
-            icon = Icons.Outlined.LocationOn
-        )
-
-        if (character.house.isNotBlank()) {
+        if(character.actor.isNotBlank()) {
             DescriptionItem(
-                label = stringResource(R.string.detail_screen_bottom_content_house_label),
-                value = character.house,
-                icon = Icons.Outlined.Home
+                label = stringResource(R.string.detail_screen_bottom_content_portrayed_by_label),
+                value = character.actor,
+                icon = Icons.Outlined.Person
             )
         }
 
-        character.dateOfBirth?.let { dob ->
+        if (character.species.isNotBlank()) {
             DescriptionItem(
-                label = stringResource(R.string.detail_screen_bottom_content_date_of_birth_label),
-                value = dob,
-                icon = Icons.Outlined.Call
+                label = stringResource(R.string.detail_screen_bottom_content_species_label),
+                value = character.species,
+                icon = Icons.Outlined.LocationOn
             )
+        }
+
+        character.house?.let {
+            if (character.house.value.isNotBlank()) {
+                DescriptionItem(
+                    label = stringResource(R.string.detail_screen_bottom_content_house_label),
+                    value = character.house.value,
+                    icon = Icons.Outlined.Home
+                )
+            }
+        }
+
+        character.dateOfBirth?.let { dob ->
+            if (character.dateOfBirth.isNotBlank()) {
+                DescriptionItem(
+                    label = stringResource(R.string.detail_screen_bottom_content_date_of_birth_label),
+                    value = dob,
+                    icon = Icons.Outlined.Call
+                )
+            }
         }
     }
 }
@@ -219,20 +228,18 @@ private val characterComplete = CharacterUiModel(
     actor = "Daniel Radcliffe",
     alive = true,
     dateOfBirth = "31 12 2024",
-    house = "human",
+    house = CharacterHouse.GRYFFINDOR,
     id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
     image = "",
     name = "Harry Potter",
     species = "human",
 )
 
-// TODO update with info that can actually be missed
-// analyse response for that
 private val characterMissingInfo = CharacterUiModel(
     actor = "Daniel Radcliffe",
     alive = true,
     dateOfBirth = "31 12 2000",
-    house = "human",
+    house =  CharacterHouse.GRYFFINDOR,
     id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
     image = "",
     name = "Harry Potter",

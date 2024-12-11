@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+internal class MainViewModel @Inject constructor(
     getCharactersUseCase: GetCharactersUseCase,
     filterCharactersUseCase: FilterCharactersUseCase,
 ) : ViewModel() {

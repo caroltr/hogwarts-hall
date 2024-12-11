@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetCharactersUseCase @Inject constructor(
+internal class GetCharactersUseCase @Inject constructor(
     private val remoteRepository: CharactersRepository
 ) {
 

@@ -18,7 +18,7 @@ import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @Composable
-fun MainScreen(
+internal fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier

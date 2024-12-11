@@ -15,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.catenri.hogwartshall.common.ui.houseColor
+import com.catenri.hogwartshall.model.CharacterHouse
 import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @Composable
-fun CharactersItem(
+internal fun CharactersItem(
     characters: List<CharacterUiModel>,
     onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
@@ -37,7 +38,7 @@ fun CharactersItem(
 }
 
 @Composable
-fun CharacterItem(
+internal fun CharacterItem(
     character: CharacterUiModel,
     onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
@@ -51,7 +52,7 @@ fun CharacterItem(
                 modifier = modifier
                     .fillMaxWidth()
                     .height(4.dp),
-                color = houseColor(character.house.lowercase())
+                color = houseColor(character.house)
             )
             Column(
                 modifier = modifier
@@ -84,7 +85,7 @@ private fun CharacterItemPreview() {
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
-                house = "gryffindor",
+                house = CharacterHouse.GRYFFINDOR,
                 id = "",
                 image = "",
                 name = "Harry",
@@ -104,7 +105,7 @@ private fun CharacterSlytherinPreview() {
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
-                house = "slytherin",
+                house = CharacterHouse.SLYTHERIN,
                 id = "",
                 image = "",
                 name = "Harry",
@@ -124,7 +125,7 @@ private fun CharacterRavenclawPreview() {
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
-                house = "ravenclaw",
+                house = CharacterHouse.RAVENCLAW,
                 id = "",
                 image = "",
                 name = "Harry",
@@ -144,7 +145,7 @@ private fun CharacterHufflepuffPreview() {
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
-                house = "hufflepuff",
+                house = CharacterHouse.HUFFLEPUFF,
                 id = "",
                 image = "",
                 name = "Harry",
@@ -164,7 +165,7 @@ private fun CharacterMissingInfoPreview() {
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
-                house = "",
+                house = null,
                 id = "",
                 image = "",
                 name = "Harry",

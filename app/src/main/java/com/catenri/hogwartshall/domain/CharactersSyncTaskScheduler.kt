@@ -19,8 +19,8 @@ class CharactersSyncTaskScheduler @Inject constructor(
 ) {
 
     fun scheduleTask() {
-        // TODO should be updated for real world scenario
-        // Min required for work manager is 15min
+        // Set to 15 min as it is the min required for Work Manager
+        // in a real world scenario this could be less frequently, as the API content shouldn't change much
         val periodicWorkRequest = PeriodicWorkRequestBuilder<SyncWorker>(REPEAT_INTERVAL_MINUTES, TimeUnit.MINUTES)
             .setConstraints(
                 Constraints.Builder()

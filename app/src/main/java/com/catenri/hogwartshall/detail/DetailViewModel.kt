@@ -12,13 +12,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val PARAM_CHARACTER_ID = "characterId"
+
 @HiltViewModel
-class DetailViewModel @Inject constructor(
+internal class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getSingleCharacterUseCase: GetSingleCharacterUseCase
 ): ViewModel() {
     
-    private val characterId: String = checkNotNull(savedStateHandle["characterId"])
+    private val characterId: String = checkNotNull(savedStateHandle[PARAM_CHARACTER_ID])
     
     private val _character = MutableStateFlow<CharacterUiModel?>(null)
     val character: StateFlow<CharacterUiModel?> = _character.asStateFlow()

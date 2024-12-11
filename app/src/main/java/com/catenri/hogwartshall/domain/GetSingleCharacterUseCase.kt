@@ -5,7 +5,7 @@ import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.model.toUiModel
 import javax.inject.Inject
 
-class GetSingleCharacterUseCase @Inject constructor(
+internal class GetSingleCharacterUseCase @Inject constructor(
     private val repository: CharactersRepository
 ) {
 
