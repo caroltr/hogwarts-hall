@@ -1,6 +1,8 @@
 package com.catenri.hogwartshall.main.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
@@ -14,38 +16,47 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.catenri.hogwartshall.R
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchTopBar(
+    isSearchAvailable: Boolean,
     isSearchActive: Boolean,
     query: String,
     onTabClick: () -> Unit,
-    onSearchIconClick: () -> Unit,
+    onBackClick: () -> Unit,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (isSearchActive) {
-        SearchField(
-            query,
-            onIconClick = onSearchIconClick,
-            onQueryChange = onQueryChange
-        )
-    } else {
-        TopAppBar(
-            modifier = modifier.fillMaxWidth(),
-            title = { Text(stringResource(R.string.app_name)) },
-            actions = {
-                IconButton(onClick = onTabClick) {
-                    Icon(
-                        Icons.Default.Search,
-                        contentDescription = stringResource(R.string.main_screen_search_bar_content_description)
-                    )
+    val appBarHeight = 56.dp
+
+    Column(modifier = modifier.height(appBarHeight)) {
+        if (isSearchActive) {
+            SearchField(
+                query,
+                onBackClick = onBackClick,
+                onQueryChange = onQueryChange,
+                modifier = modifier
+            )
+        } else {
+            TopAppBar(
+                modifier = modifier.fillMaxWidth(),
+                title = { Text(stringResource(R.string.app_name)) },
+                actions = {
+                    if (isSearchAvailable) {
+                        IconButton(onClick = onTabClick) {
+                            Icon(
+                                Icons.Default.Search,
+                                contentDescription = stringResource(R.string.main_screen_search_bar_content_description)
+                            )
+                        }
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -53,7 +64,7 @@ fun SearchTopBar(
 @Composable
 fun SearchField(
     query: String,
-    onIconClick: () -> Unit,
+    onBackClick: () -> Unit,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -65,15 +76,14 @@ fun SearchField(
         onExpandedChange = { },
         placeholder = { Text(stringResource(R.string.main_screen_search_placeholder)) },
         leadingIcon = {
-            IconButton(onClick = onIconClick) {
+            IconButton(onClick = onBackClick) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(R.string.top_bar_navigate_back_content_description)
                 )
             }
         },
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
 }
 
@@ -82,10 +92,11 @@ fun SearchField(
 private fun SearchTopBarActiveNoQueryPreview() {
     HogwartsHallTheme {
         SearchTopBar(
+            isSearchAvailable = true,
             isSearchActive = true,
             query = "",
             onTabClick = {},
-            onSearchIconClick = {},
+            onBackClick = {},
             onQueryChange = {}
         )
     }
@@ -96,10 +107,11 @@ private fun SearchTopBarActiveNoQueryPreview() {
 private fun SearchTopBarActiveWithQueryPreview() {
     HogwartsHallTheme {
         SearchTopBar(
+            isSearchAvailable = true,
             isSearchActive = true,
             query = "Query",
             onTabClick = {},
-            onSearchIconClick = {},
+            onBackClick = {},
             onQueryChange = {}
         )
     }
@@ -110,10 +122,26 @@ private fun SearchTopBarActiveWithQueryPreview() {
 private fun SearchTopBarInactivePreview() {
     HogwartsHallTheme {
         SearchTopBar(
+            isSearchAvailable = true,
             isSearchActive = false,
             query = "",
             onTabClick = {},
-            onSearchIconClick = {},
+            onBackClick = {},
+            onQueryChange = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Search Bar Inactive")
+@Composable
+private fun SearchTopBarWithoutSearchPreview() {
+    HogwartsHallTheme {
+        SearchTopBar(
+            isSearchAvailable = false,
+            isSearchActive = false,
+            query = "",
+            onTabClick = {},
+            onBackClick = {},
             onQueryChange = {}
         )
     }

@@ -6,7 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,24 +24,28 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     val mainUiStaStateFlow by viewModel.mainUiStaStateFlow.collectAsStateWithLifecycle()
-    var searchQuery by remember { mutableStateOf("") }
-    var isSearchActive by remember { mutableStateOf(false) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var isSearchActive by rememberSaveable { mutableStateOf(false) }
+    var isSearchAvailable by rememberSaveable { mutableStateOf(true) }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar  = {
             SearchTopBar(
+                isSearchAvailable = isSearchAvailable,
                 isSearchActive = isSearchActive,
                 query = searchQuery,
                 onTabClick = { isSearchActive = true },
-                onSearchIconClick = {
+                onBackClick = {
                     isSearchActive = false
                     searchQuery = ""
+                    viewModel.onSearchQueryChange(searchQuery)
                 },
                 onQueryChange = { newQuery ->
                     searchQuery = newQuery
                     viewModel.onSearchQueryChange(newQuery)
-                }
+                },
+                modifier = modifier
             )
         }
     ) { innerPadding ->
