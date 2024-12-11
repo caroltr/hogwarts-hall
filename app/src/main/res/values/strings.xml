@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Hogwarts Hall</string>
     <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="warning_message_load_failed">Failed to load characters</string>
+
+    <string name="main_screen_search_placeholder">Search characters</string>
+
+    <string name="detail_screen_bottom_content_portrayed_by_label">Portrayed by</string>
+    <string name="detail_screen_bottom_content_species_label">Species</string>
+    <string name="detail_screen_bottom_content_house_label">House</string>
+    <string name="detail_screen_bottom_content_date_of_birth_label">Date of Birth</string>
+
+    <!-- Content Descriptions -->
+    <string name="main_screen_search_bar_content_description">Search</string>
+    <string name="top_bar_navigate_back_content_description">Search</string>
+    <string name="detail_screen_picture_content_description">Picture of %1$s</string>
+
 </resources>

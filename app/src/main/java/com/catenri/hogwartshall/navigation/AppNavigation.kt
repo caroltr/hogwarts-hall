@@ -6,8 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.catenri.hogwartshall.detail.DetailScreen
-import com.catenri.hogwartshall.main.MainScreen
+import com.catenri.hogwartshall.detail.ui.DetailScreen
+import com.catenri.hogwartshall.main.ui.MainScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
