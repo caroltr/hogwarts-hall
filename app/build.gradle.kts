@@ -31,6 +31,9 @@ android {
             )
         }
     }
+
+    // missing signingConfigs to be able to generate and sign a release build
+
     buildFeatures {
         buildConfig = true
     }

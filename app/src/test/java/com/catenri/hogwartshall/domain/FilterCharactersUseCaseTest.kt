@@ -1,27 +1,28 @@
 package com.catenri.hogwartshall.domain
 
 import com.catenri.data.model.Character
+import com.catenri.hogwartshall.model.CharacterHouse
 import com.catenri.hogwartshall.model.CharacterUiModel
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
-class FilterCharactersUseCaseTest {
-    val characterHarry = CharacterUiModel(
+internal class FilterCharactersUseCaseTest {
+    private val characterHarry = CharacterUiModel(
         actor = "Daniel Radcliffe",
         alive = true,
         dateOfBirth = "31 07 1980",
-        house = "human",
+        house = CharacterHouse.GRYFFINDOR,
         id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
         image = "https://ik.imagekit.io/hpapi/harry.jpg",
         name = "Harry Potter",
         species = "human",
     )
 
-    val characterDanielle = CharacterUiModel(
+    private val characterDanielle = CharacterUiModel(
         actor = "Angelina Johnson",
         alive = true,
         dateOfBirth = "date_of_birth 1",
-        house = "Gryffindor",
+        house = CharacterHouse.SLYTHERIN,
         id = "b634f0a1-7b48-49b6-b039-27f947ee76fd",
         image = "",
         name = "Danielle Tabor",

@@ -12,10 +12,10 @@ class InstantParserTest {
 
     @Test
     fun `when date is in correct format then parse succeeds`() {
-        val date = "31-12-2024"
+        val date = "11-12-2024"
 
         val actual = sut.stringToInstant(date)
-        val expected = Instant.fromEpochMilliseconds(1733875200000)
+        val expected = Instant.fromEpochMilliseconds(1733875200000) // 11 Dec 2024
 
         assertEquals(expected, actual)
     }
