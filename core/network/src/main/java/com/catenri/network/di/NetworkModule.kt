@@ -1,5 +1,7 @@
 package com.catenri.network.di
 
+import android.os.Build
+import com.catenri.hogwartshall.core.network.BuildConfig
 import com.catenri.network.service.CharactersClient
 import com.catenri.network.service.CharactersService
 import com.catenri.network.util.InstantConverter
@@ -15,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import kotlin.math.log
 
 private const val BASE_URL = "https://hp-api.onrender.com/api/"
 
@@ -25,14 +28,15 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-        // TODO must be disabled when release build
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+        val okHttpClient = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+            okHttpClient.addInterceptor(loggingInterceptor)
         }
 
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
+        return okHttpClient.build()
     }
 
     @Provides

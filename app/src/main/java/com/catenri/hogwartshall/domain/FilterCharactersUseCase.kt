@@ -5,8 +5,6 @@ import javax.inject.Inject
 
 internal class FilterCharactersUseCase @Inject constructor() {
 
-    // TODO improve this after apply offline approach.
-    // TODO improve search performance
     operator fun invoke(
         searchQuery: String,
         characters: List<CharacterUiModel>

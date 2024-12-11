@@ -26,7 +26,6 @@ internal class CharactersRepositoryImpl @Inject constructor(
     override suspend fun getCharacter(id: String): Character =
         characterDao.get(id).toExternalCharacter()
 
-    // TODO should this live here?
     override suspend fun synchronize() {
         val characters = client.fetchCharacters().map { it.toEntity() }
         characterDao.saveAll(characters)
