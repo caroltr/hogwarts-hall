@@ -6,7 +6,7 @@
 
 The project follows the **MVVM architecture**. The app is organized into two main modules, as shown below:
 
-<img width=300 src="https://github.com/user-attachments/assets/84408c4e-a12c-44a8-9837-b6d29f2c83e2" />
+<img width=350 src="https://github.com/user-attachments/assets/aeeffda7-e4b9-4735-bac8-7a694581f44a" />
 
 This structure includes the following:
 - **app**: handles the presentation and domain layers
