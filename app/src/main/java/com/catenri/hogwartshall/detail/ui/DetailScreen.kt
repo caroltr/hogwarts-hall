@@ -42,10 +42,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.catenri.data.model.Character
 import com.catenri.hogwartshall.R
 import com.catenri.hogwartshall.common.ui.houseColor
 import com.catenri.hogwartshall.detail.DetailViewModel
+import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,7 +83,7 @@ fun DetailScreen(
 
 @Composable
 fun CharacterDetail(
-    character: Character,
+    character: CharacterUiModel,
     modifier: Modifier
 ) {
     Column(
@@ -99,7 +99,7 @@ fun CharacterDetail(
 
 @Composable
 private fun HeaderContent(
-    character: Character
+    character: CharacterUiModel
 ) {
     Box {
         AsyncImage(
@@ -141,7 +141,7 @@ private fun HeaderContent(
 
 @Composable
 private fun BottomContent(
-    character: Character
+    character: CharacterUiModel
 ) {
     Column(
         modifier = Modifier
@@ -215,10 +215,10 @@ private fun BottomContentMissingInfoPreview() {
     }
 }
 
-private val characterComplete = Character(
+private val characterComplete = CharacterUiModel(
     actor = "Daniel Radcliffe",
     alive = true,
-    dateOfBirth = "31-07-1980",
+    dateOfBirth = "31 12 2024",
     house = "human",
     id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
     image = "",
@@ -228,10 +228,10 @@ private val characterComplete = Character(
 
 // TODO update with info that can actually be missed
 // analyse response for that
-private val characterMissingInfo = Character(
+private val characterMissingInfo = CharacterUiModel(
     actor = "Daniel Radcliffe",
     alive = true,
-    dateOfBirth = "",
+    dateOfBirth = "31 12 2000",
     house = "human",
     id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
     image = "",

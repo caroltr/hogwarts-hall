@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Repository for the Characters with an offline-first approach
  * */
-class CharactersRepositoryImpl @Inject constructor(
+internal class CharactersRepositoryImpl @Inject constructor(
     private val client: CharactersClient,
     private val characterDao: CharacterDao
 ): CharactersRepository {

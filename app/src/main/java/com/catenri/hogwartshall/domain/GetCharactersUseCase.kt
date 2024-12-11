@@ -1,15 +1,18 @@
 package com.catenri.hogwartshall.domain
 
-import com.catenri.data.model.Character
-import com.catenri.data.repository.CharactersRepositoryImpl
+import com.catenri.data.repository.CharactersRepository
+import com.catenri.hogwartshall.model.CharacterUiModel
+import com.catenri.hogwartshall.model.toUiModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor(
-    private val remoteRepository: CharactersRepositoryImpl
+    private val remoteRepository: CharactersRepository
 ) {
 
-    // TODO map to a different model here
-    operator fun invoke(): Flow<List<Character>> =
-        remoteRepository.getCharacters()
+    operator fun invoke(): Flow<List<CharacterUiModel>> =
+        remoteRepository.getCharacters().map { characters ->
+            characters.map { it.toUiModel() }
+        }
 }

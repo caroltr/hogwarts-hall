@@ -34,7 +34,6 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
-    testImplementation(libs.junit.jupiter)
     ksp(libs.hilt.compiler)
 
     // coroutines

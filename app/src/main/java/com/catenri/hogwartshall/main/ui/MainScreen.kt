@@ -12,15 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.catenri.data.model.Character
 import com.catenri.hogwartshall.main.MainUiState
 import com.catenri.hogwartshall.main.MainViewModel
+import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
-    onCharacterClick: (Character) -> Unit,
+    onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val mainUiStaStateFlow by viewModel.mainUiStaStateFlow.collectAsStateWithLifecycle()

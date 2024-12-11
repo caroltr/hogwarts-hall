@@ -7,7 +7,7 @@ import com.catenri.hogwartshall.ui.theme.HogwartsColors
 
 
 @Composable
-fun houseColor(house: String): Color = when (house) {
+internal fun houseColor(house: String): Color = when (house) {
     "gryffindor" -> HogwartsColors.gryffindor
     "slytherin" -> HogwartsColors.slytherin
     "ravenclaw" -> HogwartsColors.ravenclaw

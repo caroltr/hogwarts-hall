@@ -1,6 +1,6 @@
 package com.catenri.hogwartshall.domain
 
-import com.catenri.data.model.Character
+import com.catenri.hogwartshall.model.CharacterUiModel
 import javax.inject.Inject
 
 class FilterCharactersUseCase @Inject constructor() {
@@ -9,8 +9,8 @@ class FilterCharactersUseCase @Inject constructor() {
     // TODO improve search performance
     operator fun invoke(
         searchQuery: String,
-        characters: List<Character>
-    ): List<Character> =
+        characters: List<CharacterUiModel>
+    ): List<CharacterUiModel> =
         characters.filter {
             it.name.contains(searchQuery, ignoreCase = true) ||
                     it.actor.contains(searchQuery, ignoreCase = true)

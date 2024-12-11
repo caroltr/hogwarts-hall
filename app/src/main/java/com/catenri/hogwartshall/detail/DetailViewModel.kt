@@ -3,12 +3,12 @@ package com.catenri.hogwartshall.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.catenri.hogwartshall.domain.GetSingleCharacterUseCase
+import com.catenri.hogwartshall.model.CharacterUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import com.catenri.data.model.Character
-import com.catenri.hogwartshall.domain.GetSingleCharacterUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,8 +20,8 @@ class DetailViewModel @Inject constructor(
     
     private val characterId: String = checkNotNull(savedStateHandle["characterId"])
     
-    private val _character = MutableStateFlow<Character?>(null)
-    val character: StateFlow<Character?> = _character.asStateFlow()
+    private val _character = MutableStateFlow<CharacterUiModel?>(null)
+    val character: StateFlow<CharacterUiModel?> = _character.asStateFlow()
     
     init {
         viewModelScope.launch {

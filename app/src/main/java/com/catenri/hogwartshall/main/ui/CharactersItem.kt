@@ -14,14 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.catenri.data.model.Character
 import com.catenri.hogwartshall.common.ui.houseColor
+import com.catenri.hogwartshall.model.CharacterUiModel
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @Composable
 fun CharactersItem(
-    characters: List<Character>,
-    onCharacterClick: (Character) -> Unit,
+    characters: List<CharacterUiModel>,
+    onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -38,8 +38,8 @@ fun CharactersItem(
 
 @Composable
 fun CharacterItem(
-    character: Character,
-    onCharacterClick: (Character) -> Unit,
+    character: CharacterUiModel,
+    onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -80,7 +80,7 @@ fun CharacterItem(
 private fun CharacterItemPreview() {
     HogwartsHallTheme {
         CharacterItem(
-            character = Character(
+            character = CharacterUiModel(
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
@@ -100,7 +100,7 @@ private fun CharacterItemPreview() {
 private fun CharacterSlytherinPreview() {
     HogwartsHallTheme {
         CharacterItem(
-            character = Character(
+            character = CharacterUiModel(
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
@@ -120,7 +120,7 @@ private fun CharacterSlytherinPreview() {
 private fun CharacterRavenclawPreview() {
     HogwartsHallTheme {
         CharacterItem(
-            character = Character(
+            character = CharacterUiModel(
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
@@ -140,7 +140,7 @@ private fun CharacterRavenclawPreview() {
 private fun CharacterHufflepuffPreview() {
     HogwartsHallTheme {
         CharacterItem(
-            character = Character(
+            character = CharacterUiModel(
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,
@@ -160,7 +160,7 @@ private fun CharacterHufflepuffPreview() {
 private fun CharacterMissingInfoPreview() {
     HogwartsHallTheme {
         CharacterItem(
-            character = Character(
+            character = CharacterUiModel(
                 actor = "Daniel",
                 alive = true,
                 dateOfBirth = null,

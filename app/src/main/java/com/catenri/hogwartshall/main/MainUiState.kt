@@ -1,6 +1,6 @@
 package com.catenri.hogwartshall.main
 
-import com.catenri.data.model.Character
+import com.catenri.hogwartshall.model.CharacterUiModel
 
 sealed interface MainUiState {
 
@@ -9,6 +9,6 @@ sealed interface MainUiState {
     data object LoadFailed : MainUiState
 
     data class Success(
-        val characters: List<Character>
+        val characters: List<CharacterUiModel>
     ) : MainUiState
 }

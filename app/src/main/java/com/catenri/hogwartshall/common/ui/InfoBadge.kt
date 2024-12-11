@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.catenri.hogwartshall.ui.theme.HogwartsHallTheme
 
 @Composable
-fun InfoBadge(
+internal fun InfoBadge(
     text: String,
     textColor: Color,
     backgroundColor: Color,
