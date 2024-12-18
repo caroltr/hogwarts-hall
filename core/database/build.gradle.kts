@@ -19,8 +19,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
     implementation(libs.kotlinx.datetime)
 
     // hilt
@@ -29,13 +27,12 @@ dependencies {
 
     // coroutines
     implementation(libs.coroutines)
-    testImplementation(libs.coroutines)
-    testImplementation(libs.coroutines.test)
 
     // room
     implementation(libs.room)
-    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-    androidTestImplementation(libs.androidx.junit)
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
 }

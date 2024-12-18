@@ -31,8 +31,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
     implementation(libs.kotlinx.datetime)
 
     // hilt
@@ -41,15 +39,14 @@ dependencies {
 
     // coroutines
     implementation(libs.coroutines)
-    testImplementation(libs.coroutines)
-    testImplementation(libs.coroutines.test)
 
     // network
     implementation(libs.retrofit)
     implementation(libs.okhttp.interceptor)
 
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
     testImplementation(libs.okhttp.mockserver)
     testImplementation(libs.junit.engine)
     testImplementation(libs.junit.api)
-    androidTestImplementation(libs.androidx.junit)
 }

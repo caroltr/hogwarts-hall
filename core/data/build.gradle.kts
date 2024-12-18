@@ -22,23 +22,20 @@ dependencies {
     implementation(project(":core:database"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
     implementation(libs.kotlinx.datetime)
 
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
-    // coroutines
-    implementation(libs.coroutines)
-    testImplementation(libs.coroutines)
-    testImplementation(libs.coroutines.test)
-
     // network
     implementation(libs.retrofit)
     implementation(libs.okhttp.interceptor)
 
+    // coroutines
+    implementation(libs.coroutines)
+
+    testImplementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
     testImplementation(libs.okhttp.mockserver)
-    androidTestImplementation(libs.androidx.junit)
 }
