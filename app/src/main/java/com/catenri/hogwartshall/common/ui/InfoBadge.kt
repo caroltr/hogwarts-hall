@@ -26,10 +26,12 @@ internal fun InfoBadge(
     textColor: Color,
     backgroundColor: Color,
     detailColor: Color,
+    modifier: Modifier = Modifier
 ) {
     Surface(
         color = backgroundColor,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),

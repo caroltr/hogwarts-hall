@@ -1,17 +1,22 @@
 package com.catenri.hogwartshall.main.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.catenri.hogwartshall.common.ui.houseColor
@@ -25,9 +30,11 @@ internal fun CharactersItem(
     onCharacterClick: (CharacterUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 150.dp),
         modifier = modifier
     ) {
+
         items(characters) { character ->
             CharacterItem(
                 character = character,
@@ -47,21 +54,29 @@ internal fun CharacterItem(
         modifier = modifier.padding(8.dp),
         onClick = { onCharacterClick(character) }
     ) {
-        Column {
-            HorizontalDivider(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(4.dp),
-                color = houseColor(character.house)
-            )
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            character.house?.let { house ->
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(houseColor(house))
+                        .align(Alignment.TopEnd),
+
+                )
+            }
+
             Column(
                 modifier = modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                    .fillMaxWidth(),
             ) {
                 Text(
                     text = character.name,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
                 )
                 Text(
                     text = character.actor,
